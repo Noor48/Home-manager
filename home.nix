@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixgl, nur, githubPackages, ... }:
+{ config, lib, pkgs, nixgl, nur, ... }:
 
 
 {
@@ -318,7 +318,7 @@ nixGL.installScripts = ["mesa"];
      (config.lib.nixGL.wrap warp-terminal)
      waveterm
      magic-wormhole-rs
-     (config.lib.nixGL.wrap githubPackages.zen-browser)
+     #(config.lib.nixGL.wrap githubPackages.zen-browser)
      
   ];
 
