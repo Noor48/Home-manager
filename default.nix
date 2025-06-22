@@ -5,6 +5,9 @@
     nixpkgs.hostPlatform = "x86_64-linux";
     system-manager.allowAnyDistro = true;
 
+    stylix.enable = true;
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
+
     environment = {
       etc = {
         "foo.conf".text = ''

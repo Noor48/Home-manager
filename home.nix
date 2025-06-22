@@ -23,8 +23,8 @@
 
 
   nixGL.packages = nixgl.packages.${pkgs.system};
-nixGL.defaultWrapper = "mesa";
-nixGL.installScripts = ["mesa"];
+  nixGL.defaultWrapper = "mesa";
+  nixGL.installScripts = ["mesa"];
 
   nix.package = pkgs.nix;
   programs.git = {
