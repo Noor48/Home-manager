@@ -36,12 +36,55 @@
     };
   };
 
+
+  services.flatpak = {
+    enable = true;
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+    packages = [
+      # Example packages - replace with your desired applications
+      ];
+    overrides = {
+      # Example overrides - customize as needed
+#       "org.mozilla.firefox".context = {
+#         filesystems = [
+#           "home"
+#           "/tmp"
+#         ];
+#         sockets = [
+#           "x11"
+#           "wayland"
+#           "pulseaudio"
+#         ];
+#         devices = [
+#           "dri"
+#         ];
+#       };
+#       "com.spotify.Client".context = {
+#         filesystems = [
+#           "home"
+#         ];
+#         sockets = [
+#           "x11"
+#           "wayland"
+#           "pulseaudio"
+#         ];
+#       };
+    };
+  };
+
      stylix.enable = true;
      #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
      #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-medium.yaml";
      #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
 
+
+    stylix.targets.wezterm.enable = false;
     stylix.fonts = {
         serif = {
           package = pkgs.nerd-fonts.hack;
@@ -55,19 +98,44 @@
 
         sansSerif = {
           package = pkgs.nerd-fonts.arimo;
-          name = "Amiro Nerd fonts";
+          name = "Arimo Nerd fonts";
         };
 
-        monospace = {
-          package = pkgs.nerd-fonts.mononoki;
-          name = "Mononoki Nerd Fonts";
-        };
+           monospace = {
+             package = pkgs.nerd-fonts.mononoki;
+             name = "Mononoki Nerd Font";
+           };
 
         emoji = {
           package = pkgs.noto-fonts-emoji;
           name = "Noto Color Emoji";
         };
       };
+
+
+      fonts.fontconfig.enable = true;
+
+# stylix.fonts = {
+#     serif = {
+#       package = pkgs.dejavu_fonts;
+#       name = "DejaVu Serif";
+#     };
+#
+#     sansSerif = {
+#       package = pkgs.dejavu_fonts;
+#       name = "DejaVu Sans";
+#     };
+#
+#     monospace = {
+#       package = pkgs.dejavu_fonts;
+#       name = "DejaVu Sans Mono";
+#     };
+#
+#     emoji = {
+#       package = pkgs.noto-fonts-emoji;
+#       name = "Noto Color Emoji";
+#     };
+#   };
 #catppuccin.flavor = "mocha";
   #programs.wezterm = {
   #  enable = true;
@@ -83,6 +151,7 @@
     wezterm = {
         enable = true;
         package = config.lib.nixGL.wrap pkgs.wezterm;
+        #extraConfig = builtins.readFile /home/nooremf/wezterm-config-master/wezterm.lua;
 
      };
 
@@ -315,12 +384,19 @@
      #fabric-ai
      #russh
      #warpgate
-     (config.lib.nixGL.wrap warp-terminal)
+    # (config.lib.nixGL.wrap warp-terminal)
      waveterm
      magic-wormhole-rs
      #(config.lib.nixGL.wrap githubPackages.zen-browser)
-     
+     #nerd-fonts.mononoki
+     #(config.lib.nixGL.wrap pkgs.wezterm)
+     nerd-fonts.jetbrains-mono
+     nerd-fonts.mononoki
+     nerd-fonts.hack
+     nerd-fonts.arimo
+
   ];
+ # ] ++ (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts));
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -330,6 +406,7 @@
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/sc  reenrc;
     ".bashrc".source = "/home/nooremf/bashrc backup.txt";
+    #".config/wezterm".source = /home/nooremf/wezterm-config-master;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
